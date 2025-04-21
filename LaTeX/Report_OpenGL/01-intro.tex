@@ -1,0 +1,19 @@
+
+\section{Introduction} % ----------------------------------------------
+
+The aim of this project is to implement a real-time graphics pipeline capable of visualizing a particle-based fluid simulation implemented in CUDA.
+
+\noindent
+The CUDA simulation, which runs independently on a separate thread, writes the particle data to a shared Vertex Buffer Object, which is used to render the particles in the first steps of our pipeline. The \texttt{Particle} type is a \texttt{struct\{float3, float3, float\}} which contains, respectively, the position of a particle, its velocity, and its density.\\
+
+\noindent
+Typically, there are three main techniques used for rendering fluids in real-time:
+\begin{itemize}
+    \item \textbf{Marching cubes}: by Lorensen et al. \cite{marchingCubes1988}, is an algorithm used to create a triangular mesh of the fluid volume. While visually accurate, this approach requires reconstructing the entire fluid surface, which can be computationally expensive for dynamic simulations.
+    \item \textbf{Raymarching}: which performs raycasting from the projection plane, and performs regular sampling of the fluid density field. This approach easily allows us to compute multiple refractions along the view-ray at the expense of a high computational cost, making it difficult to optimize and scale for real-time applications.
+    \item \textbf{Screen-space techniques}: there are several, but for this project we used some of the ideas proposed by Laan et al. in \cite{green2009screen} and by S.Green in \cite{green2010GDC}. These methods operate primarily in screen space, making them particularly efficient for real-time applications as they focus computational resources only on visible fluid surfaces and scale well with scene complexity.
+\end{itemize}
+
+\noindent
+For this project, we chose to implement screen-space techniques for their balance between visual quality and performance. This approach allows us to achieve convincing fluid rendering with realistic refraction and reflection effects while maintaining interactive frame rates, even with a large number of particles.
+
