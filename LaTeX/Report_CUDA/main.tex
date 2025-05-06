@@ -1,0 +1,70 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage{tabularx, array}
+\usepackage{adjustbox}
+\usepackage{booktabs}
+\usepackage{caption} 
+\usepackage{float}
+\usepackage{subfig}
+\usepackage[a4paper,top=2cm,bottom=3cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage[linesnumbered, ruled, vlined]{algorithm2e}
+\usepackage[section]{placeins}
+\usepackage{mathtools,slashed}
+\usepackage[makeroom]{cancel}
+\usepackage{pgfplots}
+\usepackage{newclude}
+\SetKwComment{Comment}{// }{}
+
+\pgfplotsset{compat=1.18}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = blue, %Colour for external hyperlinks
+  linkcolor    = blue, %Colour of internal links
+  citecolor   = black %Colour of citations
+}
+
+\sisetup{%
+    group-digits = integer,
+    group-minimum-digits = 4,
+    group-separator = {\dot{\;}},
+    output-decimal-marker = {,},
+}
+
+\usepackage[lighttt]{lmodern}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\makeatletter
+\makeatother
+
+\captionsetup[table]{justification=centering, labelfont=bf}
+\captionsetup[figure]{justification=centering, labelfont=bf}
+\newcommand{\mono}[1]{\texttt{#1}}
+\newcommand{\bt}{\textbf}
+\title{\textbf{Smoothed Particle Hydrodynamics in CUDA}}
+
+
+
+\begin{document}
+\author{Matteo Princisgh}
+\date{}
+\maketitle
+
+
+\include*{01-intro}
+\include*{02-CUDA}
+
+
+
+\newpage
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}
