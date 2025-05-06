@@ -16,8 +16,6 @@
 #include <vector>
 
 #define PI 3.14159265358979323846f
-#define EPSILON 0.01f
-#define VOXEL_SIZE 0.1f  // volume sizes should be multiples of the voxel size to avoid boundary checking
 
 /**
  * @brief Class for simulating particles using SPH (Smoothed Particle Hydrodynamics).
@@ -123,7 +121,7 @@ class ParticleSim {
     Particle* pBuffers[2];             // front & back device buffers
     cudaGraphicsResource_t sharedVBO;  // resource that points to the shared openGL buffer
     std::atomic<bool> adaptiveStepTime = false;
-    float deltaT = 1. / 60.;
+    float deltaT;
 
     std::atomic<uint> activeBuffer = 0;
     std::thread simulationThread_;

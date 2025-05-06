@@ -2,6 +2,7 @@
 #include <cub/cub.cuh>
 #include <random>
 
+// Simulation parameters written in constant memory to be accessed by all threads
 __constant__ __device__ float K;
 __constant__ __device__ float RHO_ZERO;
 __constant__ __device__ float MASS;
@@ -11,6 +12,7 @@ __constant__ __device__ float VISC_MULT;
 __constant__ __device__ float TIMESTEP;
 __device__ curandState* d_randStates;
 
+// Function pointer type to do funny functional stuff in SPHEstimator
 typedef float3 (*funcPointer_t)(Particle, Particle);
 
 // compute particle densities using SPH estimation
@@ -113,7 +115,7 @@ void ParticleSim::initParticles() {
     std::uniform_real_distribution<float> dist(0.0, 1.0);
 
     std::vector<Particle> particles(numParticles);
-    for (uint i = 0; i < numParticles; ++i)
+    for (uint i = 0; i < numParticles; ++i) // initialize particles at random positions
         particles[i].position = make_float3((vol.x / 5) + dist(e2) * (vol.x / 3), vol.y * dist(e2), (vol.z / 5) + dist(e2) * (vol.z / 2));
 
     CHECK(cudaMemcpyToSymbol(NUM_PARTICLES, &numParticles, sizeof(numParticles)));
